@@ -16,7 +16,7 @@ export default function Form() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (Object.keys(formData).length == 0) return console.log("NO Data avaliable")
+        if (Object.keys(formData).length == 0) return console.log("NO Data avaliable ")
         console.log(formData)
     }
 
