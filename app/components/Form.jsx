@@ -20,7 +20,7 @@ export default function Form() {
         console.log(formData)
     }
 
-    if (Object.keys(formData) > 0 ) return <Success message={"Data Added"}/>
+    if (Object.keys(formData) > 0 ) return <Success message={"Data Added"} />
 
     return (
         <form className="grid lg:grid-cols-2 w-4/6 gap-4 " onSubmit={handleSubmit}>
