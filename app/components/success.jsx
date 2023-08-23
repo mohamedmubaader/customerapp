@@ -1,4 +1,4 @@
-import { BiCheck } from "react-icons/bi";
+import { BiPlus } from "react-icons/bi";
 
 export default function Success({message}) {
     return (

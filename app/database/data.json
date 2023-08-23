@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "name": "Dean Lych",
+        "email": "deanlych@gmail.com",
+        "phone": "25000",
+        "startdate": "2022-06-08",
+        "status": "Active"
+    },
+    {
+        "id": 2,
+        "name": "Garrett Winters",
+        "email": "deanlych@gmail.com",
+        "phone": "25000",
+        "startdate": "2022-06-08",
+        "status": "Active"
+    },
+    {
+        "id": 3,
+        "name": "Cedric Kelly",
+        "email": "deanlych@gmail.com",
+        "phone": "25000",
+        "startdate": "2022-06-08",
+        "status": "Active"
+    },
+    {
+        "id": 4,
+        "name": "Airi Satou",
+        "email": "deanlych@gmail.com",
+        "phone": "25000",
+        "startdate": "2022-06-08",
+        "status": "Active"
+    },
+    {
+        "id": 5,
+        "name": "Haley Kennedy",
+        "email": "deanlych@gmail.com",
+        "phone": "25000",
+        "startdate": "2022-06-08",
+        "status": "Active"
+    },
+    {
+        "id": 6,
+        "name": "Michael Silva",
+        "email": "deanlych@gmail.com",
+        "phone": "25000",
+        "startdate": "2022-06-08",
+        "status": "Inactive"
+    },
+    {
+        "id": 7,
+        "name": "Jenette Caldwell",
+        "email": "deanlych@gmail.com",
+        "phone": "25000",
+        "startdate": "2022-06-08",
+        "status": "Active"
+    },
+    {
+        "id": 8, 
+        "name": "Yuri Berry",
+        "email": "deanlych@gmail.com",
+        "phone": "25000",
+        "startdate": "2022-06-08",
+        "status": "Inactive"
+    }
+]
