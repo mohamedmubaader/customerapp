@@ -8,7 +8,11 @@ import { getCustomer } from "../helpers/helper";
 
 export default function UpdateUserForm({formId,formData,setFormData}) {
 
-    const {isLoading,isError,data,error} = useQuery(['users',formId],()=>getCustomer(formId))
+    const {isLoading,isError,data,error} = useQuery(['customers',formId],()=>getCustomer(formId))
+
+    if(isLoading) return <div>Loading ...</div>
+    if(isError) return <div>Error</div>
+    
     const {name, email, phone, location} = data
 
     const handleSubmit = (e) => {
@@ -16,10 +20,7 @@ export default function UpdateUserForm({formId,formData,setFormData}) {
         if (Object.keys(formData).length == 0) return console.log("NO Data avaliable ")
     }
 
-   if(isLoading) return <div>Loading ...</div>
-   if(isError) return <div>Error</div>
- 
-
+   
     return (
         <form className="grid lg:grid-cols-2 w-4/6 gap-4 " onSubmit={handleSubmit}>
             <div className="input-type">

@@ -49,17 +49,15 @@ if(isError) return <div>Got Error {error}</div>
     )
 }
 
-function Tr({id,name,phone,email,location}) {
+function Tr({_id,name,phone,email,location}) {
    
     const visible = useSelector((state) => state.app.client.toggleForm)
-    console.log(visible)
     const dispatch = useDispatch()
 
-    const onUpdate = () => { console.log(id)
+    const onUpdate = () => { console.log(_id)
         dispatch(toggleChangeAction())
         if (visible)  {
-            dispatch(updateAction(id))
-            console.log(id)
+            dispatch(updateAction(_id))
         }
     }
     return (

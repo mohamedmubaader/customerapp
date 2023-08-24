@@ -1,6 +1,6 @@
 "use client"
 import { BiSolidUserPlus } from "react-icons/bi";
-import Table from "./components/Table"
+import Table from "./components/table"
 import Form from './components/Form'
 //import {useState} from 'react'
 import { useSelector, useDispatch  } from 'react-redux'
