@@ -3,40 +3,52 @@ import { useReducer } from "react"
 import { BiBrush, BiPlus } from "react-icons/bi";
 // import Success from './Success'
 import Bug from "./Bug";
-import { useQuery } from "@tanstack/react-query";
-import { getCustomer } from "../helpers/helper";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getCustomer, getCustomers, updateCustomer } from "../helpers/helper";
 
 export default function UpdateUserForm({formId,formData,setFormData}) {
 
+    const queryClient = useQueryClient()
     const {isLoading,isError,data,error} = useQuery(['customers',formId],()=>getCustomer(formId))
+
+    const UpdateMutation = useMutation((newdata) => updateCustomer(formId,newdata),{
+          onSuccess: async (data) => { 
+             await queryClient.prefetchQuery(['customers'],getCustomers) 
+         }
+    })
 
     if(isLoading) return <div>Loading ...</div>
     if(isError) return <div>Error</div>
     
     const {name, email, phone, location} = data
+    console.log('update user data 2',data.customer.name)
+    
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if (Object.keys(formData).length == 0) return console.log("NO Data avaliable ")
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let userName = `${formData.name ?? name} `;
+        console.log('usernameee',userName)
+        let updated = Object.assign({}, {...data}, formData)
+        UpdateMutation.mutate(updated)
     }
 
    
     return (
         <form className="grid lg:grid-cols-2 w-4/6 gap-4 " onSubmit={handleSubmit}>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={name} name="name" placeholder="Name" 
+                <input type="text" onChange={setFormData} defaultValue={data.customer.name} name="name" placeholder="Name" 
                 className="border w-full px-5 py-3 focus:outline-none rounded-md"/>
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={email} name="email" placeholder="Email" 
+                <input type="text" onChange={setFormData} defaultValue={data.customer.email} name="email" placeholder="Email" 
                 className="border w-full px-5 py-3 focus:outline-none rounded-md"/>
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={phone} name="Phone" placeholder="Phone" 
+                <input type="text" onChange={setFormData} defaultValue={data.customer.phone} name="Phone" placeholder="Phone" 
                 className="border w-full px-5 py-3 focus:outline-none rounded-md"/>
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={location} name="location" placeholder="Location" 
+                <input type="text" onChange={setFormData} defaultValue={data.customer.location} name="location" placeholder="Location" 
                 className="border w-full px-5 py-3 focus:outline-none rounded-md"/>
             </div>
             <div className="input-type">

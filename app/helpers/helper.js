@@ -44,7 +44,7 @@ export async function updateCustomer(customerId, formData) {
     try {
         const Options = {
             method: 'PUT',
-            headers: { 'Content/Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
         };
         const res = await fetch(`${BASE_URL}/api/customers/${customerId}`, Options);
@@ -63,7 +63,7 @@ export async function deleteCustomer(customerId) {
     try {
         const Options = {
             method: 'DELETE',
-            headers: { 'Content/Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
         };
         const res = await fetch(`${BASE_URL}/api/customers/${customerId}`, Options);
         //await new Promise((resolve) => setTimeout(resolve, 3000)) // wait 3 second

@@ -5,12 +5,12 @@ import { BiEdit,BiTrashAlt } from "react-icons/bi";
 import { useQuery } from '@tanstack/react-query';
 import { useSelector, useDispatch} from 'react-redux'
 //import data from './../database/data.json'
-import { toggleChangeAction, updateAction } from './../../redux/reducer'
+import { deleteAction, toggleChangeAction, updateAction } from './../../redux/reducer'
 import {getCustomers} from './../helpers/helper'
 
 export default function Table () {
 
-const { isLoading, isError, data, error } = useQuery(['users'], getCustomers)
+const { isLoading, isError, data, error } = useQuery(['customers'], getCustomers)
 
 if(isLoading) return <div>Employee is Loading...</div>;
 if(isError) return <div>Got Error {error}</div>
@@ -49,23 +49,29 @@ if(isError) return <div>Got Error {error}</div>
     )
 }
 
-function Tr({_id,name,phone,email,location}) {
-   
+function Tr({id,name,phone,email,location}) {
     const visible = useSelector((state) => state.app.client.toggleForm)
     const dispatch = useDispatch()
 
-    const onUpdate = () => { console.log(_id)
-        dispatch(toggleChangeAction())
+    const onUpdate = () => { 
+        console.log(id)
+        dispatch(toggleChangeAction(id))
         if (visible)  {
-            dispatch(updateAction(_id))
+            dispatch(updateAction(id))
         }
     }
+
+    const onDelete = () => {
+        if(!visible){
+            dispatch(deleteAction(id))
+        }
+    }
+
     return (
         <tr className="bg-gray-50 text-center">
             <th className="px-16 py-2 flex flex-row items-center">
                 {/* <img src= {avatar || "#"} alt="" /> */}
                 <span className="text-centr ml-2 font-semibold">{name || "unKnow"}</span>
-
             </th>
             <th className="px-14 py-2">
                 <span>{email || "unKnown"}</span>
@@ -91,7 +97,7 @@ function Tr({_id,name,phone,email,location}) {
                 <button onClick={onUpdate} className=" cursor-pointer">
                     <BiEdit size={25} color={"rgb(34,197,94"}></BiEdit>
                 </button>
-                <button className=" cursor-pointer">
+                <button onClick={onDelete} className=" cursor-pointer">
                     <BiTrashAlt size={25} color={"rgb(244,63,94"}></BiTrashAlt>
                 </button>
             </th>
