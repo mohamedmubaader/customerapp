@@ -54,7 +54,6 @@ function Tr({id,name,phone,email,location}) {
     const dispatch = useDispatch()
 
     const onUpdate = () => { 
-        console.log(id)
         dispatch(toggleChangeAction(id))
         if (visible)  {
             dispatch(updateAction(id))

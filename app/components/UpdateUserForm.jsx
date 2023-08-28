@@ -1,17 +1,21 @@
  "use client"
 import { useReducer } from "react"
 import { BiBrush, BiPlus } from "react-icons/bi";
-// import Success from './Success'
+import Success from './Success'
 import Bug from "./Bug";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCustomer, getCustomers, updateCustomer } from "../helpers/helper";
+import { useDispatch} from 'react-redux'
+import { toggleChangeAction } from './../../redux/reducer'
 
 export default function UpdateUserForm({formId,formData,setFormData}) {
 
     const queryClient = useQueryClient()
     const {isLoading,isError,data,error} = useQuery(['customers',formId],()=>getCustomer(formId))
+    console.log("customer data",data)
 
-    const UpdateMutation = useMutation((newdata) => updateCustomer(formId,newdata),{
+    const UpdateMutation = useMutation((updated) => updateCustomer(formId,updated)
+    ,{
           onSuccess: async (data) => { 
              await queryClient.prefetchQuery(['customers'],getCustomers) 
          }
@@ -20,18 +24,23 @@ export default function UpdateUserForm({formId,formData,setFormData}) {
     if(isLoading) return <div>Loading ...</div>
     if(isError) return <div>Error</div>
     
-    const {name, email, phone, location} = data
-    console.log('update user data 2',data.customer.name)
-    
-
+    const {name, email, phone, location} = data 
+    console.log("before FF Formdata ...-----",formData)
+    console.log("before XXX data ...-----",data)
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        let userName = `${formData.name ?? name} `;
-        console.log('usernameee',userName)
-        let updated = Object.assign({}, {...data}, formData)
+        e.preventDefault();   
+        console.log("Hello World ...")
+
+        let updated = Object.assign({},data,formData)
+        console.log("after FF Formdata ...-----",updated)
+         
         UpdateMutation.mutate(updated)
     }
 
+    if (UpdateMutation.isLoading) return <div>Updating ...</div>
+    if (UpdateMutation.isError)   return  <Bug message={addMutation.error.message}/>
+    if (UpdateMutation.isSuccess)   return  <Success message={"Updated Successfully"}/>
+    
    
     return (
         <form className="grid lg:grid-cols-2 w-4/6 gap-4 " onSubmit={handleSubmit}>

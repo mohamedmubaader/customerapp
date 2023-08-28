@@ -1,9 +1,9 @@
 
-const BASE_URL = "http://127.0.0.1:3000/"
+const BASE_URL = "http://192.168.1.115:3000"
 
 //all users
 export const getCustomers = async () => {
-    const res = await fetch(`http://127.0.0.1:3000/api/customers`);
+    const res = await fetch(`${BASE_URL}/api/customers`);
  
     const customers = await res.json()
 
@@ -28,7 +28,7 @@ export const addCustomer = async (formData) => {
             headers:{'Content-Type': 'application/json'},
             body:JSON.stringify(formData)
         }
-        const res = await fetch(`${BASE_URL}api/customers`,Options);
+        const res = await fetch(`${BASE_URL}/api/customers`,Options);
         //await new Promise((resolve) => setTimeout(resolve, 3000)) // wait 3 second
         const customer = await res.json()
         return customer
@@ -43,10 +43,10 @@ export const addCustomer = async (formData) => {
 export async function updateCustomer(customerId, formData) {
     try {
         const Options = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        };
+            method: 'PATCH',
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(formData)
+        }
         const res = await fetch(`${BASE_URL}/api/customers/${customerId}`, Options);
         //await new Promise((resolve) => setTimeout(resolve, 3000)) // wait 3 second
         const customer = await res.json();
