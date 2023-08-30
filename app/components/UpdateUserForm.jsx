@@ -12,7 +12,6 @@ export default function UpdateUserForm({formId,formData,setFormData}) {
 
     const queryClient = useQueryClient()
     const {isLoading,isError,data,error} = useQuery(['customers',formId],()=>getCustomer(formId))
-    console.log("customer data",data)
 
     const UpdateMutation = useMutation((updated) => updateCustomer(formId,updated)
     ,{
@@ -25,19 +24,18 @@ export default function UpdateUserForm({formId,formData,setFormData}) {
     if(isError) return <div>Error</div>
     
     const {name, email, phone, location} = data 
-    console.log("before FF Formdata ...-----",formData)
-    console.log("before XXX data ...-----",data)
+
     const handleSubmit = async (e) => {
         e.preventDefault();   
         console.log("Hello World ...")
 
         let updated = Object.assign({},data,formData)
-        console.log("after FF Formdata ...-----",updated)
+   
          
         UpdateMutation.mutate(updated)
     }
 
-    if (UpdateMutation.isLoading) return <div>Updating ...</div>
+    if (UpdateMutation.isLoading) return <div>Updating Records ...</div>
     if (UpdateMutation.isError)   return  <Bug message={addMutation.error.message}/>
     if (UpdateMutation.isSuccess)   return  <Success message={"Updated Successfully"}/>
     
